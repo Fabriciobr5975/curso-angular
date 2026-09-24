@@ -3,5 +3,7 @@
 <app-curso-detalhe></app-curso-detalhe>
 
 <ul>
-  <li *ngFor="let curso of cursos">{{ curso }}</li>
+  @for (curso of cursos; track curso) {
+    <li>{{ curso }}</li>
+  }
 </ul>
