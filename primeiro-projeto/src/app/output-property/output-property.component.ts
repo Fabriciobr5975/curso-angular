@@ -8,7 +8,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
   // outputs: ["mudouValor"]
 })
 export class OutputPropertyComponent {
-  @Input() valor: number = 0;
+  @Input() valor = 0;
 
   @Output() mudouValor = new EventEmitter();
   // mudouValor = output<{ novoValor: number }>();

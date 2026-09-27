@@ -10,6 +10,6 @@ import { Component, Input } from '@angular/core';
 export class InputPropertyComponent {
 
   @Input()
-  nomeCurso: string = "";
+  nomeCurso = "";
 
 }

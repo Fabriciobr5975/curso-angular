@@ -27,7 +27,7 @@ export class CicloComponent implements
   AfterViewChecked,
   OnDestroy {
 
-  @Input() valorInicial: number = 10;
+  @Input() valorInicial = 10;
 
   constructor() {
     this.log("constructor");

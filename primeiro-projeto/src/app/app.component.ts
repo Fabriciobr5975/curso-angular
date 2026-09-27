@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  valor: number = 5;
+  valor = 5;
 
-  deletarCiclo: boolean = false;
+  deletarCiclo = false;
 
   mudarValor(): void {
     this.valor++;

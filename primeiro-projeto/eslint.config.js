@@ -34,6 +34,7 @@ module.exports = tseslint.config(
   },
   {
     files: ["**/*.html"],
+    // @ts-ignore
     extends: [
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,

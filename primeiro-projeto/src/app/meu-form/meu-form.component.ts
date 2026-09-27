@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 
+interface User {
+  nome: string;
+  idade: number
+};
+
 @Component({
   selector: 'app-meu-form',
   standalone: false,
@@ -7,9 +12,9 @@ import { Component } from '@angular/core';
   styleUrl: './meu-form.component.css'
 })
 export class MeuFormComponent {
-  nome: string = "abc";
+  nome = "abc";
 
-  pessoa: any = {
+  pessoa: User = {
     nome: "def",
     idade: 20
   }
