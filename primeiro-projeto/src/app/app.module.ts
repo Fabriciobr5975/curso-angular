@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MeuPrimeiroComponent } from "./meu-primeiro/meu-primeiro.component";
 import { MeuPrimeiro2Component } from './meu-primeiro2/meu-primeiro2.component'
-import { CursosModule } from './cursos/cursos.module';
 import { DataBindingComponent } from './data-binding/data-binding.component';
 import { FormsModule } from '@angular/forms';
 import { MeuFormModule } from './meu-form/meu-form.module';
@@ -23,6 +22,11 @@ import { FundoAmareloDirective } from './shared/fundo-amarelo.directive';
 import { DiretivasCustomizadasComponent } from './diretivas-customizadas/diretivas-customizadas.component';
 import { HighlightMouseDirective } from './shared/highlight-mouse.directive';
 import { HighlightDirective } from './shared/highlight.directive';
+import { NgElseDirective } from './shared/ng-else.directive';
+import { CriarCursoModule } from './servicos/criar-curso/criar-curso.module';
+import { ServicosModule } from './servicos/servicos.module';
+import { CursosModule } from './cursos/cursos.module';
+import { CursosServiceModule } from './servicos/cursos/cursos.module';
 
 @NgModule({
   declarations: [
@@ -44,13 +48,18 @@ import { HighlightDirective } from './shared/highlight.directive';
     DiretivasCustomizadasComponent,
     HighlightMouseDirective,
     HighlightDirective,
+    NgElseDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CursosModule,
     FormsModule,
-    MeuFormModule
+    MeuFormModule,
+    CriarCursoModule,
+    CursosModule,
+    ServicosModule,
+    CursosServiceModule
 ],
   providers: [],
   bootstrap: [AppComponent]
