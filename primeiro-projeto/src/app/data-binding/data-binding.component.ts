@@ -25,9 +25,9 @@ export class DataBindingComponent {
     idade: 20
   }
 
-  nomeCurso: string = "Angular";
+  nomeCurso = "Angular";
 
-  valorInicial: number = 15;
+  valorInicial = 15;
 
   onMudouValor(evento: any) {
     console.log(evento.novoValor);

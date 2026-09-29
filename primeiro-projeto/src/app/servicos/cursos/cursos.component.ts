@@ -7,12 +7,12 @@ import { CursosService } from './cursos.service';
   standalone: false,
   templateUrl: './cursos.component.html',
   styleUrl: './cursos.component.scss',
-  // providers: [CursosService]
+  providers: [CursosService]
 })
 export class CursosComponent implements OnInit {
   cursos: string[] = [];
   // cursoService: CursosService = inject(CursosService);
-  cursosService: CursosService = inject(CursosService);
+  private cursosService: CursosService = inject(CursosService);
 
   constructor(/* private cursosService: CursosService */) {
     // this.cursosService = new CursosService();
@@ -20,5 +20,10 @@ export class CursosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursos = this.cursosService.getCursos();
+    CursosService.criouNovoCurso.subscribe(
+      {
+        next: (curso: string) => this.cursos.push(curso),
+      }
+    );
   }
 }

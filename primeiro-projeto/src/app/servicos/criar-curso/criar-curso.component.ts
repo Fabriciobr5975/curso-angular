@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit } from '@angular/core';
 
 import { CursosService } from '../cursos/cursos.service';
 
@@ -11,7 +11,6 @@ import { CursosService } from '../cursos/cursos.service';
 export class CriarCursoComponent implements OnInit {
 
   cursos: string[] = [];
-
   private cursoService: CursosService = inject(CursosService);
 
   ngOnInit(): void {
