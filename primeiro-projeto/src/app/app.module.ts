@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,10 @@ import { CriarCursoModule } from './servicos/criar-curso/criar-curso.module';
 import { CursosServiceModule } from './servicos/cursos/cursos.module';
 import { ServicosModule } from './servicos/servicos.module';
 import { SharedModule } from './shared/shared.module';
+import { PipesModule } from './pipes/pipes.module';
+import { SettingsService } from './settings.service';
+
+import "@angular/common/locales/global/pt";
 
 @NgModule({
   declarations: [
@@ -31,9 +35,14 @@ import { SharedModule } from './shared/shared.module';
     CursosModule,
     ServicosModule,
     CursosServiceModule,
-    SharedModule
-],
-  providers: [],
+    SharedModule,
+    PipesModule
+  ],
+  providers: [SettingsService, {
+    provide: LOCALE_ID,
+    deps: [SettingsService],
+    useFactory: (settingsService: SettingsService) => settingsService.getLocale()
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
