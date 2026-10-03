@@ -37,4 +37,45 @@
 <br><br>
 <app-cursos-servico></app-cursos-servico> -->
 
-<app-exemplos-pipes></app-exemplos-pipes>
+<!-- <app-exemplos-pipes></app-exemplos-pipes> -->
+
+<!-- <mat-toolbar>
+  <mat-toolbar-row>
+    <span>
+      <a routerLink=""> Logotipo </a>
+    </span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <ul>
+      <li>
+        <a href="/login"
+        [routerLinkActive]="'active'"
+        >Login</a>
+      </li>
+      <li>
+        <a [routerLink]="'/cursos'">Cursos</a>
+      </li>
+    </ul>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div> -->
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="">Rotas Ng2</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/cursos">Cursos</a>
+  </li>
+</ul>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

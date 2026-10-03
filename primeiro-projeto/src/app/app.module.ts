@@ -16,7 +16,15 @@ import { SharedModule } from './shared/shared.module';
 import { PipesModule } from './pipes/pipes.module';
 import { SettingsService } from './settings.service';
 
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
+
 import "@angular/common/locales/global/pt";
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,13 @@ import "@angular/common/locales/global/pt";
     ServicosModule,
     CursosServiceModule,
     SharedModule,
-    PipesModule
+    PipesModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    routing,
+
   ],
   providers: [SettingsService, {
     provide: LOCALE_ID,
