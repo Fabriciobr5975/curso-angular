@@ -1,1 +1,11 @@
-<p>cursos works!</p>
+<p>Lista de Cursos</p>
+<p>Página: {{ pagina }} </p>
+<div>
+  @for (curso of cursos; track curso.id) {
+    <a class="link" [routerLink]="['/cursos', curso.id]">
+      {{ curso.nome }}
+    </a>
+  }
+</div>
+
+<button (click)="proximaPagina()">Próxima Página</button>

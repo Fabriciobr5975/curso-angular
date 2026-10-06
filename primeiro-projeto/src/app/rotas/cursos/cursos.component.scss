@@ -1,0 +1,35 @@
+.cursos-card {
+  border-radius: 1rem;
+}
+
+.curso-item {
+  min-height: 4.5rem;
+}
+
+.curso-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  background-color: var(--bs-primary-bg-subtle);
+  font-size: 1.1rem;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  padding-block: 0.5em;
+  padding-left: 0.5rem;
+  margin-block: 0.25em;
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: #dcdbdb;
+}
+
+.link .active {
+  background-color: #f0f0f0;
+}
