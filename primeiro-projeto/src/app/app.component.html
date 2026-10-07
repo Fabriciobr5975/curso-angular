@@ -72,11 +72,18 @@
     <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" routerLink="/cursos" [queryParams]="{pagina: 1}">Cursos</a>
+    <a class="nav-link" routerLink="/cursos" [queryParams]="{ pagina: 1 }"
+      >Cursos</a
+    >
   </li>
   <li class="nav-item">
     <a class="nav-link" [routerLink]="['cursos', idCurso.value]">
       Curso com Id
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/alunos">
+      Alunos
     </a>
   </li>
 </ul>
