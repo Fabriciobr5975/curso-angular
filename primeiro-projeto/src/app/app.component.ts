@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthService } from './rotas/login/auth.service';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +7,14 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   valor = 5;
 
   deletarCiclo = false;
+
+  mostrarMenu = false;
+
+  private authService: AuthService = inject(AuthService);
 
   mudarValor(): void {
     this.valor++;
@@ -17,5 +22,9 @@ export class AppComponent {
 
   destruirCiclo() {
     this.deletarCiclo = true;
+  }
+
+  ngOnInit(): void {
+    this.authService.mostrarMenuEmmiter.subscribe(mostrar => this.mostrarMenu = mostrar);
   }
 }

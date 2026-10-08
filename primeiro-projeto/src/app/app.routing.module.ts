@@ -9,6 +9,8 @@ import { HomeComponent } from './rotas/home/home.component';
 import { LoginComponent } from './rotas/login/login.component';
 
 const appRoutes: Routes = [
+  { path: "cursos", loadChildren: () => import('./rotas/cursos/cursos.module').then(m => m.CursosModule) },
+  { path: "alunos", loadChildren: () => import('./rotas/alunos/alunos.module').then(m => m.AlunosModule) },
   // { path: "cursos", component: CursosComponent},
   // { path: "cursos/:id", component: CursoDetalheComponent},
   { path: "login", component: LoginComponent},

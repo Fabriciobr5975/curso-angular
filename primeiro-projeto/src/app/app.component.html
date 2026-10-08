@@ -64,32 +64,34 @@
   <router-outlet></router-outlet>
 </div> -->
 
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link" routerLink="">Rotas Ng2</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/cursos" [queryParams]="{ pagina: 1 }"
-      >Cursos</a
-    >
-  </li>
-  <li class="nav-item">
+@if (mostrarMenu) {
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">Rotas Ng2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/login"
+        >Login</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/cursos" [queryParams]="{ pagina: 1 }"
+        >Cursos</a
+      >
+    </li>
+    <!-- <li class="nav-item">
     <a class="nav-link" [routerLink]="['cursos', idCurso.value]">
       Curso com Id
     </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/alunos">
-      Alunos
-    </a>
-  </li>
-</ul>
+  </li> -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/alunos"> Alunos </a>
+    </li>
+  </ul>
+}
 
 <div class="container">
-  <p>Entre com o id do curso</p>
-  <input type="text" #idCurso />
+  <!-- <p>Entre com o id do curso</p>
+  <input type="text" #idCurso /> -->
   <router-outlet></router-outlet>
 </div>

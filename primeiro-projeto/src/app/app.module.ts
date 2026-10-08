@@ -39,7 +39,6 @@ import { AppRoutingModule } from './app.routing.module';
     FormsModule,
     MeuFormModule,
     CriarCursoModule,
-    CursosModule,
     ServicosModule,
     CursosServiceModule,
     SharedModule,
@@ -55,7 +54,8 @@ import { AppRoutingModule } from './app.routing.module';
     provide: LOCALE_ID,
     deps: [SettingsService],
     useFactory: (settingsService: SettingsService) => settingsService.getLocale()
-  }],
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

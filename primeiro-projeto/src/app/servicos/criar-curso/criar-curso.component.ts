@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { CursosService } from '../cursos/cursos.service';
 

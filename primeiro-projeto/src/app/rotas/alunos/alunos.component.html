@@ -1,2 +1,18 @@
-<p>alunos works!</p>
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col">
+    <p>Lista de Alunos</p>
+    <ul class="list-group">
+      @for (aluno of alunos; track aluno.id) {
+        <a
+          class="list-group-item list-group-item-action"
+          [routerLink]="[aluno.id]"
+        >
+          {{ aluno.nome }}
+        </a>
+      }
+    </ul>
+  </div>
+  <div class="col">
+    <router-outlet></router-outlet>
+  </div>
+</div>
