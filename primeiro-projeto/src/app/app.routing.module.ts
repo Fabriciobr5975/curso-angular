@@ -7,15 +7,30 @@ import { RouterModule, Routes } from '@angular/router';
 // import { CursosComponent } from './rotas/cursos/cursos.component';
 import { HomeComponent } from './rotas/home/home.component';
 import { LoginComponent } from './rotas/login/login.component';
+import { AuthGuard } from './rotas/guards/auth.guard';
+import { CursoGuard } from './rotas/guards/curso.guard';
+import { AlunosGuard } from './rotas/guards/alunos.guard';
 
 const appRoutes: Routes = [
-  { path: "cursos", loadChildren: () => import('./rotas/cursos/cursos.module').then(m => m.CursosModule) },
-  { path: "alunos", loadChildren: () => import('./rotas/alunos/alunos.module').then(m => m.AlunosModule) },
+  {
+    path: "cursos",
+    loadChildren: () => import('./rotas/cursos/cursos.module').then(m => m.CursosModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [CursoGuard]
+  },
+  {
+    path: "alunos",
+    loadChildren: () => import('./rotas/alunos/alunos.module').then(m => m.AlunosModule),
+    canActivate: [AuthGuard],
+    // canActivateChild: [AlunosGuard]
+  },
   // { path: "cursos", component: CursosComponent},
   // { path: "cursos/:id", component: CursoDetalheComponent},
-  { path: "login", component: LoginComponent},
+  { path: "login", component: LoginComponent },
   // { path: "naoEncontrado", component: CursoNaoEncontradoComponent },
-  { path: "", component: HomeComponent}
+  { path: "", component: HomeComponent,
+    canActivate: [AuthGuard]
+   }
 ];
 
 @NgModule({
