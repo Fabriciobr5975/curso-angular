@@ -24,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import "@angular/common/locales/global/pt";
 // import { routing } from './app.routing';
 import { AppRoutingModule } from './app.routing.module';
+import { FormulariosModule } from './formularios/formularios.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AppRoutingModule } from './app.routing.module';
     CriarCursoModule,
     ServicosModule,
     CursosServiceModule,
+    FormulariosModule,
     SharedModule,
     PipesModule,
     MatIconModule,

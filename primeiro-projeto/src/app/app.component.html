@@ -63,7 +63,7 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div> -->
-
+<!--
 @if (mostrarMenu) {
   <ul class="nav">
     <li class="nav-item">
@@ -84,16 +84,34 @@
         >Cursos</a
       >
     </li>
-    <!-- <li class="nav-item">
+     <li class="nav-item">
     <a class="nav-link" [routerLink]="['cursos', idCurso.value]">
       Curso com Id
     </a>
-  </li> -->
+  </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/alunos"> Alunos </a>
     </li>
   </ul>
-}
+} -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-semibold" routerLink="">Angular Forms</a>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/templateForm" routerLinkActive="active">
+          Form - Template Driven
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dataForm" routerLinkActive="active">
+          Form - Data Driven
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container">
   <!-- <p>Entre com o id do curso</p>

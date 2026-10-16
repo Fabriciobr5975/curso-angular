@@ -1,0 +1,17 @@
+<div style="margin-top: 20px">
+  <div>Detalhes do form</div>
+  @if (form()) {
+    <pre>
+    Formulário válido: {{ form()?.valid }}
+  </pre
+    >
+    <pre>
+    Formulário submetido: {{ form()?.submitted }}
+  </pre
+    >
+    <pre>
+    Valores: {{ form()?.value | json }}
+  </pre
+    >
+  }
+</div>
