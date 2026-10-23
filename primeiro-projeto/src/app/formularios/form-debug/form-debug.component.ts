@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form-debug',
@@ -8,5 +8,5 @@ import { NgForm } from '@angular/forms';
   styleUrl: './form-debug.component.scss',
 })
 export class FormDebugComponent {
-  form = input<NgForm>();
+  form = input<any>();
 }

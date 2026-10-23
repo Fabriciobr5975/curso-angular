@@ -91,7 +91,7 @@ export class TemplateFormComponent {
     console.log(form);
     console.log(this.usuario);
 
-    this.http.post("enderecoServer/formUsuario", JSON.stringify(form.value))
+    this.http.post("https://httpbin.org/post", JSON.stringify(form.value))
       .pipe(map(res => res))
       .subscribe({
         next: (dados) => console.log(dados)
