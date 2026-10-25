@@ -87,14 +87,17 @@ export class TemplateFormComponent {
     });
   }
 
-  onSubmit(form: NgForm): void {
-    console.log(form);
+  onSubmit(formulario: NgForm): void {
+    console.log(formulario);
     console.log(this.usuario);
 
-    this.http.post("https://httpbin.org/post", JSON.stringify(form.value))
+    this.http.post("https://httpbin.org/post", JSON.stringify(formulario.value))
       .pipe(map(res => res))
       .subscribe({
-        next: (dados) => console.log(dados)
+        next: (dados) => {
+          console.log(dados);
+          formulario.form.reset();
+        }
       });
   }
 }

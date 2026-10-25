@@ -2,24 +2,21 @@ import { CommonModule } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CampoControlErroComponent } from './campo-control-erro/campo-control-erro.component';
 import { DataFormComponent } from './data-form/data-form.component';
-import { FormDebugComponent } from './form-debug/form-debug.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     TemplateFormComponent,
-    DataFormComponent,
-    FormDebugComponent,
-    CampoControlErroComponent
+    DataFormComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // HttpClientModule
-  ],
+    SharedModule
+],
   providers: [
     provideHttpClient(withInterceptorsFromDi())
   ]
