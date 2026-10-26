@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Usuario } from './usuario';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-template-form',
@@ -18,6 +18,7 @@ export class TemplateFormComponent {
   }
 
   private http: HttpClient = inject(HttpClient);
+  private consultaCepService = inject(ConsultaCepService);
 
   verificaValidTouched(campo: NgModel): boolean {
     return (!campo.valid && campo.touched) ?? false;
@@ -34,15 +35,8 @@ export class TemplateFormComponent {
     // limpando o cep, somente dígitos
     cep = cep.replace(/\D/g, '');
 
-    // Expressão regular para validar o CEP
-    const validaCEP = /^[0-9]{8}$/;
-
-    // Valida o formato do CEP
-    if (validaCEP.test(cep)) {
-      this.resetaDadosForm(form);
-
-      this.http.get(`//viacep.com.br/ws/${cep}/json/`)
-        .pipe(map((dados) => dados))
+    if (cep !== null && cep !== "") {
+      this.consultaCepService.consultaCEP(cep)
         .subscribe(dados => this.populaDadosForm(dados, form));
     }
   }
@@ -61,7 +55,7 @@ export class TemplateFormComponent {
     //     estado: dados.uf
     //   }
     // });
-
+    
     form.form.patchValue({
       endereco: {
         cep: dados.cep,
@@ -92,7 +86,6 @@ export class TemplateFormComponent {
     console.log(this.usuario);
 
     this.http.post("https://httpbin.org/post", JSON.stringify(formulario.value))
-      .pipe(map(res => res))
       .subscribe({
         next: (dados) => {
           console.log(dados);

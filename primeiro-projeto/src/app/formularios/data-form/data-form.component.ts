@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
-import { EstadosBr } from './../shared/models/estados-br.model';
+import { EstadosBr } from '../shared/models/estados-br.model';
+import { Cargo } from '../shared/models/cargo.model';
+import { Tecnologia } from '../shared/models/tecnlogias.model';
 
 @Component({
   selector: 'app-data-form',
@@ -13,11 +16,17 @@ import { EstadosBr } from './../shared/models/estados-br.model';
 })
 export class DataFormComponent implements OnInit {
   formulario: FormGroup;
-  estados: EstadosBr[] = [];
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private http: HttpClient = inject(HttpClient);
   private dropdownService: DropdownService = inject(DropdownService);
+  estados!: Observable<EstadosBr[]>;
+  // estados$ = this.dropdownService.getEstadosBr();
+  cargos: Cargo[] = [];
+  tecnologias: Tecnologia[] = [];
+  newsletterOp: any[] = [];
+
+  private consultaCepService = inject(ConsultaCepService);
 
   constructor() {
     // this.formulario = new FormGroup({
@@ -39,8 +48,11 @@ export class DataFormComponent implements OnInit {
         bairro: [null, [Validators.required]],
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
-
       }),
+      cargo: [null],
+      tecnologias: [null],
+      newsletter: ['s'],
+      termos: [null, [Validators.required, Validators.requiredTrue, Validators.pattern("true")]]
     });
   }
 
@@ -107,19 +119,10 @@ export class DataFormComponent implements OnInit {
   }
 
   consultaCEP() {
-    let cep: string = this.formulario.get("endereco.cep")?.value;
-    // limpando o cep, somente dígitos
-    cep = cep.replace(/\D/g, '');
+    const cep: string = this.formulario.get("endereco.cep")?.value;
 
-    // Expressão regular para validar o CEP
-    const validaCEP = /^[0-9]{8}$/;
-
-    // Valida o formato do CEP
-    if (validaCEP.test(cep)) {
-      this.resetaDadosForm();
-
-      this.http.get(`//viacep.com.br/ws/${cep}/json/`)
-        .pipe(map((dados) => dados))
+    if (cep !== null && cep !== "") {
+      this.consultaCepService.consultaCEP(cep)
         .subscribe(dados => this.populaDadosForm(dados));
     }
   }
@@ -152,11 +155,30 @@ export class DataFormComponent implements OnInit {
     });
   }
 
+  setarCargo() {
+    const cargo: Cargo = { nome: "Dev", nivel: "Pleno", desc: "Dev Pl" };
+    this.formulario.get("cargo")?.setValue(cargo);
+  }
+
+  setarTecnologia() {
+    this.formulario.get("tecnologias")?.setValue(["java", "javascript", "php"]);
+  }
+
+  compararCargos(obj1: Cargo, obj2: Cargo) {
+    return obj1 && obj2 ?
+      (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel)
+      : obj1 === obj2;
+  }
+
   ngOnInit(): void {
-    this.dropdownService.getEstadosBr()
-      .subscribe((dados: EstadosBr[]) => {
-        this.estados.push(...dados);
-        console.log(dados);
-      })
+    this.estados = this.dropdownService.getEstadosBr();
+    this.cargos = this.dropdownService.getCargos();
+    this.tecnologias = this.dropdownService.getTecnologias();
+    this.newsletterOp = this.dropdownService.getNewsletter();
+    // this.dropdownService.getEstadosBr()
+    //   .subscribe((dados: EstadosBr[]) => {
+    //     this.estados.push(...dados);
+    //     console.log(dados);
+    //   });
   }
 }
