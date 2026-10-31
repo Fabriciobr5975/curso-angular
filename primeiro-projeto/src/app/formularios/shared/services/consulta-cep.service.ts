@@ -9,6 +9,8 @@ export class ConsultaCepService {
   private http: HttpClient = inject(HttpClient);
 
   consultaCEP(cep: string) {
+    console.log(cep);
+
     // limpando o cep, somente dígitos
     cep = cep.replace(/\D/g, '');
 

@@ -1,6 +1,17 @@
 <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <div class="row g-3 pt-3 pb-3">
-    <div class="col-sm-12" [ngClass]="aplicaCssErro('nome')">
+    <app-input-field
+      formControlName="nome"
+      type="text"
+      [classeCss]="aplicaCssErro('nome')"
+      id="nome"
+      label="Nome"
+      placeholder="Nome"
+      [control]="formulario.get('nome')!"
+    >
+    </app-input-field>
+
+    <!-- <div class="col-sm-12" [ngClass]="aplicaCssErro('nome')">
       <label for="nome" class="form-label">Nome</label>
       <input
         type="text"
@@ -9,12 +20,9 @@
         formControlName="nome"
         placeholder="Nome"
       />
-      <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('nome')"
-        msgErro="Nome é obrigatório"
-      >
-      </app-campo-control-erro>
-    </div>
+      <app-error-msg [control]="formulario.get('nome')" label="Nome">
+      </app-error-msg>
+    </div> -->
     <div class="col-sm-12" [ngClass]="aplicaCssErro('email')">
       <label for="email" class="form-label">Email</label>
       <input
@@ -34,6 +42,41 @@
         msgErro="Email inválido"
       >
       </app-campo-control-erro>
+      <app-campo-control-erro
+        [mostrarErro]="formulario.get('email')?.status === 'PENDING'"
+        msgErro="Validando Email"
+      >
+      </app-campo-control-erro>
+      <app-campo-control-erro
+        [mostrarErro]="formulario.get('email')?.status === 'VALID'"
+        msgErro="Email válido!"
+      >
+      </app-campo-control-erro>
+      <app-campo-control-erro
+        [mostrarErro]="
+          formulario.get('email')?.hasError('emailInvalido') ?? false
+        "
+        msgErro="Email já cadastrado!"
+      >
+      </app-campo-control-erro>
+    </div>
+
+    <div class="col-sm-12" [ngClass]="aplicaCssErro('email')">
+      <label for="confirmarEmail" class="form-label">Confirmar Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="confirmarEmail"
+        formControlName="confirmarEmail"
+        placeholder="nome@email.com"
+      />
+      <app-campo-control-erro
+        [mostrarErro]="
+          formulario.get('confirmarEmail')?.hasError('equalsTo') ?? false
+        "
+        msgErro="Emails não são iguais"
+      >
+      </app-campo-control-erro>
     </div>
 
     <div formGroupName="endereco" class="row g-3">
@@ -45,13 +88,19 @@
           id="cep"
           placeholder="00000-000"
           formControlName="cep"
-          (blur)="consultaCEP()"
         />
-        <app-campo-control-erro
+        <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP">
+        </app-error-msg>
+        <!--   <app-campo-control-erro
           [mostrarErro]="verificaValidTouched('endereco.cep')"
           msgErro="CEP é obrigatório"
         >
         </app-campo-control-erro>
+        <app-campo-control-erro
+          [mostrarErro]="verificarCepInvalido()"
+          msgErro="CEP inválido"
+        >
+        </app-campo-control-erro> -->
       </div>
 
       <div class="col-md-3" [ngClass]="aplicaCssErro('endereco.numero')">
@@ -218,6 +267,30 @@
           [mostrarErro]="!formulario.get('termos')?.valid"
           msgErro="Por favor, aceite os termos!"
         ></app-campo-control-erro>
+      </div>
+
+      <div class="col-md-3" [ngClass]="aplicaCssErro('frameworks')">
+        <div>
+          <label for="frameworks" class="form-label">Frameworks</label>
+        </div>
+        <div id="frameworks" class="form-check form-check-inline">
+          @for (item of formulario.get("frameworks")?.value; track $index) {
+            <div class="col-sm-3" formArrayName="frameworks">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  [formControlName]="$index"
+                />
+                {{ frameworks[$index] }}
+              </label>
+            </div>
+          }
+          <app-campo-control-erro
+            [mostrarErro]="!formulario.get('frameworks')?.valid"
+            msgErro="Selecione uma opção!"
+          ></app-campo-control-erro>
+        </div>
       </div>
     </div>
   </div>
