@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { asapScheduler, distinctUntilChanged, empty, map, Observable, of, scheduled, switchMap, tap } from 'rxjs';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { asapScheduler, distinctUntilChanged, empty, EMPTY, map, Observable, of, scheduled, switchMap, tap } from 'rxjs';
+import { BaseFormComponent } from '../shared/base-form/base-form.component';
 import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo.model';
 import { EstadosBr } from '../shared/models/estados-br.model';
@@ -9,6 +10,7 @@ import { Tecnologia } from '../shared/models/tecnlogias.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { VerificaEmail } from './service/verifica-email';
+import { Cidade } from '../shared/models/cidade';
 
 @Component({
   selector: 'app-data-form',
@@ -16,14 +18,15 @@ import { VerificaEmail } from './service/verifica-email';
   templateUrl: './data-form.component.html',
   styleUrl: './data-form.component.scss',
 })
-export class DataFormComponent implements OnInit {
-  formulario: FormGroup;
+export class DataFormComponent extends BaseFormComponent implements OnInit {
+  // formulario: FormGroup;
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private http: HttpClient = inject(HttpClient);
   private dropdownService: DropdownService = inject(DropdownService);
-  estados!: Observable<EstadosBr[]>;
-  // estados$ = this.dropdownService.getEstadosBr();
+  // estados!: Observable<EstadosBr[]>;
+  cidades!: Cidade[];
+  estados!: EstadosBr[];
   cargos: Cargo[] = [];
   tecnologias: Tecnologia[] = [];
   newsletterOp: any[] = [];
@@ -34,6 +37,7 @@ export class DataFormComponent implements OnInit {
   private verificaEmail: VerificaEmail = inject(VerificaEmail);
 
   constructor() {
+    super();
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null),
@@ -61,6 +65,8 @@ export class DataFormComponent implements OnInit {
       termos: [null, [Validators.required, Validators.requiredTrue, Validators.pattern("true")]],
       frameworks: this.buildFrameworks()
     });
+
+    this.dropdownService.getEstadosBr().subscribe(dados => this.estados = dados);
   }
 
   buildFrameworks() {
@@ -95,7 +101,7 @@ export class DataFormComponent implements OnInit {
     return validator;
   }*/
 
-  onSubmit(): void {
+  submit(): void {
     console.log(this.formulario);
 
     let valueSubmit = Object.assign({}, this.formulario.value);
@@ -107,48 +113,21 @@ export class DataFormComponent implements OnInit {
 
     console.log(valueSubmit);
 
-    if (this.formulario.valid) {
-      this.http.post("https://httpbin.org/post", JSON.stringify(this.formulario.value))
-        .pipe(map(res => res))
-        .subscribe({
-          next: (dados) => {
-            console.log(dados);
-            // Reseta formulário
-            // this.formulario.reset();
-            this.resetar();
-          },
-          error: (error) => {
-            alert("Erro");
-            console.log(error);
-          },
-          complete: () => console.log("Requisição completa")
-        });
-    } else {
-      console.log("Formulário inválido");
-      // this.formulario.markAllAsDirty();
-      this.verificaValidacoesForm(this.formulario);
-    }
-  }
-
-  verificaValidacoesForm(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
-      const controle = formGroup.get(campo);
-      controle?.markAsDirty();
-
-      if (controle instanceof FormGroup)
-        this.verificaValidacoesForm(controle);
-    });
-  }
-
-  resetar() {
-    this.formulario.reset();
-  }
-
-  verificaValidTouched(campo: string): boolean {
-    const control = this.formulario.get(campo);
-    if (!control) return false;
-    return (!control.valid && (control.touched || control.dirty));
+    this.http.post("https://httpbin.org/post", JSON.stringify(this.formulario.value))
+      .pipe(map(res => res))
+      .subscribe({
+        next: (dados) => {
+          console.log(dados);
+          // Reseta formulário
+          // this.formulario.reset();
+          this.resetar();
+        },
+        error: (error) => {
+          alert("Erro");
+          console.log(error);
+        },
+        complete: () => console.log("Requisição completa")
+      });
   }
 
   verificaEmailInvalido(): boolean {
@@ -157,13 +136,6 @@ export class DataFormComponent implements OnInit {
       return campoEmail.errors["email"] && (campoEmail?.touched ?? false);
 
     return false;
-  }
-
-  aplicaCssErro(campo: string) {
-    return {
-      'has-error': this.verificaValidTouched(campo),
-      'has-feedback': this.verificaValidTouched(campo)
-    }
   }
 
   consultaCEP() {
@@ -238,10 +210,35 @@ export class DataFormComponent implements OnInit {
         next: dados => dados ? this.populaDadosForm(dados) : {}
       });
 
-    this.estados = this.dropdownService.getEstadosBr();
+    // this.estados = this.dropdownService.getEstadosBr();
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
     this.newsletterOp = this.dropdownService.getNewsletter();
+
+    this.formulario.get("endereco.estado")?.valueChanges
+      .pipe(
+        tap(estado => console.log("Novo Estado: ", estado)),
+        map(estado => this.estados.filter(e => e.sigla === estado)),
+        map(estados => estados && estados.length > 0 ? estados[0].id : EMPTY),
+        switchMap(estadoId => this.dropdownService.getCidades(Number(estadoId))),
+        tap(console.log)
+      )
+      .subscribe(cidades => this.cidades = cidades);
+
+    // this.formulario.get('endereco.estado')?.valueChanges
+    //   .pipe(
+    //     switchMap(sigla => this.estados.pipe(
+    //       map(estados => estados.filter(estado => estado.sigla === sigla)),
+    //       map(estados => estados[0].id),
+    //       switchMap(id => this.dropdownService.getCidades(id).pipe(
+    //         map((cidades: Cidade[]) => this.cidades = cidades)
+    //       ))
+    //     )),
+    //   ).subscribe();
+
+
+    // this.dropdownService.getCidades(26).subscribe(console.log);
+
     // this.dropdownService.getEstadosBr()
     //   .subscribe((dados: EstadosBr[]) => {
     //     this.estados.push(...dados);
