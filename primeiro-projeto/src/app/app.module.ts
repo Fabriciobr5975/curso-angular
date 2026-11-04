@@ -25,6 +25,7 @@ import "@angular/common/locales/global/pt";
 // import { routing } from './app.routing';
 import { AppRoutingModule } from './app.routing.module';
 import { FormulariosModule } from './formularios/formularios.module';
+import { RequestsHttpModule } from './requests-http/requests-http.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FormulariosModule } from './formularios/formularios.module';
     MatSidenavModule,
     MatListModule,
     // routing,
-    AppRoutingModule
+    AppRoutingModule,
+    RequestsHttpModule
   ],
   providers: [SettingsService, {
     provide: LOCALE_ID,

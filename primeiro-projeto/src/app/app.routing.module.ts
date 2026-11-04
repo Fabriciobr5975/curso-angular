@@ -41,14 +41,14 @@ import { DataFormComponent } from './formularios/data-form/data-form.component';
 //    { path: "**", component: PaginaNaoEncontradaComponent }
 // ];
 
-const appRoutes: Routes = [
-  { path: "templateForm", component: TemplateFormComponent },
-  { path: "dataForm", component: DataFormComponent },
-  { path: "", pathMatch: "full", redirectTo: "dataForm" },
-]
+// const appRoutes: Routes = [
+//   { path: "templateForm", component: TemplateFormComponent },
+//   { path: "dataForm", component: DataFormComponent },
+//   { path: "", pathMatch: "full", redirectTo: "dataForm" },
+// ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, /* { useHash: true } */ )],
+  imports: [RouterModule.forRoot([], /* { useHash: true } */ )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

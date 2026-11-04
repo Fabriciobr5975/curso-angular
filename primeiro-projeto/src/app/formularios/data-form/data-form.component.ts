@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { asapScheduler, distinctUntilChanged, empty, EMPTY, map, Observable, of, scheduled, switchMap, tap } from 'rxjs';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
@@ -17,6 +17,7 @@ import { Cidade } from '../shared/models/cidade';
   standalone: false,
   templateUrl: './data-form.component.html',
   styleUrl: './data-form.component.scss',
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class DataFormComponent extends BaseFormComponent implements OnInit {
   // formulario: FormGroup;
