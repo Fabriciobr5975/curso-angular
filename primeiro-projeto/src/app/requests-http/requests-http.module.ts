@@ -6,7 +6,6 @@ import { RequestsHttpRoutingModule } from './requests-http-routing.module';
 import { RequestsHttpComponent } from './requests-http.component';
 import { UnsubscribeRxjsModule } from './unsubscribe-rxjs/unsubscribe-rxjs.module';
 
-
 @NgModule({
   declarations: [
     RequestsHttpComponent,
