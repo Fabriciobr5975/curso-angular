@@ -7,7 +7,7 @@
       <button type="button" class="btn btn-primary" [routerLink]="['novo']">
         Novo Curso
       </button>
-      <button type="button" class="btn btn-secondary">Atualizar</button>
+      <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
     </div>
   </div>
   <div class="card-body">
@@ -42,11 +42,20 @@
         </tbody>
       </table>
     } @else {
-      <span>Carregando Cursos...</span>
+      @if (error$ | async) {
+        <div>Erro ao carregar cursos. Tente novamente mais tarde.</div>
+      } @else {
+        <span>Carregando Cursos...</span>
+      }
     }
 
     <!-- <ng-template #loading>
-      <span>Carregando Cursos...</span>
+      <div *ngIf="error$ | async; else loadingNoError">
+        Erro ao carregar cursos. Tente novamente mais tarde.
+      </div>
+      <ng-template #loadingNoError>
+        <span>Carregando Cursos...</span>
+      </ng-template>
     </ng-template> -->
   </div>
 

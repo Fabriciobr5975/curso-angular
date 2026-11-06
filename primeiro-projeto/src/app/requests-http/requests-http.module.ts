@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CursosModule } from './cursos/cursos.module';
 import { RequestsHttpRoutingModule } from './requests-http-routing.module';
 import { RequestsHttpComponent } from './requests-http.component';
+import { UnsubscribeRxjsModule } from './unsubscribe-rxjs/unsubscribe-rxjs.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RequestsHttpComponent } from './requests-http.component';
   imports: [
     CommonModule,
     CursosModule,
-    RequestsHttpRoutingModule
+    RequestsHttpRoutingModule,
+    UnsubscribeRxjsModule
   ],
   exports: [
     RequestsHttpComponent
