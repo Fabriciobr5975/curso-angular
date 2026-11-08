@@ -42,11 +42,12 @@
         </tbody>
       </table>
     } @else {
-      @if (error$ | async) {
+      <span>Carregando Cursos...</span>
+      <!-- @if (error$ | async) {
         <div>Erro ao carregar cursos. Tente novamente mais tarde.</div>
       } @else {
         <span>Carregando Cursos...</span>
-      }
+      } -->
     }
 
     <!-- <ng-template #loading>

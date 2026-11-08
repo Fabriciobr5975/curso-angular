@@ -1,8 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { EMPTY, Observable, of, Subject } from 'rxjs';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AlertModalComponent } from '../../shared/alert-modal/alert-modal.component';
 import { Curso } from "../curso";
 import { CursosService } from '../cursos.service';
+import { AlertModalService } from '../../shared/alert-modal.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -17,6 +20,10 @@ export class CursosListaComponent implements OnInit {
   protected cursos$!: Observable<Curso[]>;
   protected error$ = new Subject<boolean>();
 
+  protected bsModalRef: BsModalRef = inject(BsModalRef);
+  // private modalService: BsModalService = inject(BsModalService);
+  private alertService: AlertModalService = inject(AlertModalService);
+
   ngOnInit(): void {
     // this.service.list()
     //   .subscribe(dados => this.cursos = dados);
@@ -28,7 +35,8 @@ export class CursosListaComponent implements OnInit {
       .pipe(
         catchError(error => {
           console.error(error);
-          this.error$.next(true);
+          // this.error$.next(true);
+          this.handleError();
           return EMPTY;
         })
       );
@@ -42,5 +50,19 @@ export class CursosListaComponent implements OnInit {
     //     // error: error => console.error(error),
     //     complete: () => console.log("Observable completo!")
     //   });
+  }
+
+  handleError() {
+    this.alertService.showAlertDanger('Erro ao carregar cursos. Tente novamente mais tarde.');
+
+    // this.bsModalRef = this.modalService.show(AlertModalComponent, {
+    //   initialState: {
+    //     type: 'danger',
+    //     message: 'Erro ao carregar cursos. Tente novamente mais tarde.'
+    //   }
+    // });
+
+    // this.bsModalRef.content.type = "danger";
+    // this.bsModalRef.content.message = "Erro ao carregar cursos. Tente novamente mais tarde.";
   }
 }
