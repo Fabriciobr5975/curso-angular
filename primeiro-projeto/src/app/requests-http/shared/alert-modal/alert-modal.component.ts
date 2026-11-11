@@ -10,6 +10,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 export class AlertModalComponent {
   @Input() type = "success";
   @Input() message = "";
+
   bsModalRef: BsModalRef = inject(BsModalRef);
 
   onClose(): void {
