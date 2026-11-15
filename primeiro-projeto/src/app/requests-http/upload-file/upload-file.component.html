@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="mb-3">
+    <input
+      class="form-control"
+      type="file"
+      id="formFile"
+      (change)="onChange($event)"
+      multiple
+    />
+    <label for="formFile" class="form-label" id="formFileLabel"
+      >Selecionar Arquivo</label
+    >
+  </div>
+  <div class="progress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [style.width]="progress + '%'"
+      [aria-valuenow]="progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      {{ progress }}%
+    </div>
+  </div>
+</div>
+<div class="mt-4">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onUpload()"
+    [disabled]="!files"
+  >
+    Upload
+  </button>
+</div>
