@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { UploadFileService } from './upload-file.service';
 import { environment } from '../../../environments/environment.development';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { filterResponse, uploadProgress } from '../shared/rxjs-operators';
+import { UploadFileService } from './upload-file.service';
 
 @Component({
   selector: 'app-upload-file',
@@ -51,20 +50,34 @@ export class UploadFileComponent {
             console.log("Upload concluído");
           },
         })
-        // .subscribe({
-        //   next: (event: HttpEvent<object>) => {
-        //     // console.log(event);
-        //     if (event.type === HttpEventType.Response) {
-        //       console.log("Upload concluído");
-        //       this.files.clear();
-        //     } else if (event.type === HttpEventType.UploadProgress) {
-        //       const percentDone = Math.round((event.loaded * 100) / event.total!);
-        //       // console.log("Progresso", percentDone);
-        //       this.progress = percentDone;
-        //       this.cdr.detectChanges();
-        //     }
-        //   },
-        // });
+      // .subscribe({
+      //   next: (event: HttpEvent<object>) => {
+      //     // console.log(event);
+      //     if (event.type === HttpEventType.Response) {
+      //       console.log("Upload concluído");
+      //       this.files.clear();
+      //     } else if (event.type === HttpEventType.UploadProgress) {
+      //       const percentDone = Math.round((event.loaded * 100) / event.total!);
+      //       // console.log("Progresso", percentDone);
+      //       this.progress = percentDone;
+      //       this.cdr.detectChanges();
+      //     }
+      //   },
+      // });
     }
+  }
+
+  onDowloadExcel() {
+    this.service.download(environment.BASE_URL + "/downloadExcel")
+      .subscribe({
+        next: (resp: Blob) => this.service.handleFile(resp, "report.xlsx"),
+      });
+  }
+
+  onDowloadPDF() {
+    this.service.download(environment.BASE_URL + "/downloadPDF")
+      .subscribe({
+        next: (resp: Blob) => this.service.handleFile(resp, "report.pdf"),
+      });
   }
 }

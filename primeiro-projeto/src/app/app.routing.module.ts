@@ -47,8 +47,13 @@ import { DataFormComponent } from './formularios/data-form/data-form.component';
 //   { path: "", pathMatch: "full", redirectTo: "dataForm" },
 // ]
 
+const appRoutes: Routes = [
+  {
+    path: "", pathMatch: "full", redirectTo: "busca-reativa"
+  },
+]
 @NgModule({
-  imports: [RouterModule.forRoot([], /* { useHash: true } */ )],
+  imports: [RouterModule.forRoot(appRoutes, /* { useHash: true } */)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
