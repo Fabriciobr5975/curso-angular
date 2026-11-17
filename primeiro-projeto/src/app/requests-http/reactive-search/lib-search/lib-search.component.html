@@ -11,12 +11,14 @@
         />
       </div>
       <div class="col-auto">
-        <button class="btn btn-lg btn-success" (click)="onSearch()">Pesquisar</button>
+        <button class="btn btn-lg btn-success" (click)="onSearch()">
+          Pesquisar
+        </button>
       </div>
     </div>
   </div>
   <div class="search-list">
-    <h3>Registros encontrados.</h3>
+    <h3>{{ total }} Registros encontrados.</h3>
     <table class="table" id="myTable">
       <thead>
         <tr>
@@ -25,10 +27,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
+        @for (result of (results$ | async) || []; track $index) {
+          <tr>
+            <td>{{ result.name }}</td>
+            <td>{{ result.version }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
