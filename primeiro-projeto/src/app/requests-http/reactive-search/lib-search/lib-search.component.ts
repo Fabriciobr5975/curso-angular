@@ -41,7 +41,7 @@ export class LibSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.results$ = this.queryField.valueChanges
+      this.results$ = this.queryField.valueChanges
       .pipe(
         map(value => (value ?? "").replace(/\s/g, "")),
         filter(value => value.length > 1),
