@@ -15,6 +15,7 @@
     "@angular/common": "^21.2.26",
     "@angular/compiler": "^21.2.26",
     "@angular/core": "^21.2.26",
+    "@angular/fire": "^21.0.0",
     "@angular/forms": "^21.2.26",
     "@angular/material": "^21.2.14",
     "@angular/platform-browser": "^21.2.26",
@@ -25,7 +26,8 @@
     "ngx-bootstrap": "^21.2.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "firebase": "^12.18.0"
   },
   "devDependencies": {
     "@angular/build": "^21.2.29",
